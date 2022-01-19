@@ -9,9 +9,8 @@
     .word-row {
         display: grid;
         gap: var(--grid-gap);
-        grid-template-columns: repeat(5, 50px);
+        grid-template-columns: repeat(5, 1fr);
         justify-content: center;
-        max-width: 24rem;
         margin-left: auto;
         margin-right: auto;
     }
