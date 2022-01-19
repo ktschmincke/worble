@@ -102,30 +102,30 @@
 
 	</div>
 
-    <div class="bottom-wrapper">
-        {#if maxedGuesses || win}
-            <div class="results">
-                {#if maxedGuesses && !win}
-                    <p>YOU'VE BEEN</p>
-                    <p class="worbled">WORBLED!!!!!!!!!!!!</p>
-                    <p>The word was '{word}'.</p>
-                {/if}
-                {#if win}
-                    <p>Congrats! You got it right!</p>
-                {/if}
-                {#if maxedGuesses || win}
-                    <button on:click={resetGame}>Play again</button>
-                {/if}
-            </div>
-        {:else}
+    {#if maxedGuesses || win}
+        <div class="results">
+            {#if maxedGuesses && !win}
+                <p>YOU'VE BEEN</p>
+                <p class="worbled">WORBLED!!!!!!!!!!!!</p>
+                <p>The word was '{word}'.</p>
+            {/if}
+            {#if win}
+                <p>Congrats! You got it right!</p>
+            {/if}
+            {#if maxedGuesses || win}
+                <button on:click={resetGame}>Play again</button>
+            {/if}
+        </div>
+    {:else}
+        <div class="keyboard">
             <Keyboard
                 keyMap={keyMap}
                 on:keyClicked={(e) => keyClicked(e.detail)}
                 on:enterClicked={checkGuess}
                 on:backspaceClicked={backspaceClicked}
             />
-        {/if}
-    </div>
+        </div>
+    {/if}
 </main>
 
 <style>
@@ -153,6 +153,7 @@
 
     .results {
         text-align: center;
+        margin-top: 2rem;
     }
 
     .worbled {
@@ -163,7 +164,7 @@
         width: fit-content;
     }
 
-    .bottom-wrapper {
+    .keyboard {
         margin-top: auto;
         width: 100%;
     }
