@@ -88,7 +88,7 @@
 
 <svelte:window on:keydown={handleWindowKeydown}/>
 
-<main>
+<main class="flow">
 	<h1>WORBLE</h1>
 
 	<div class="flow game-board">
@@ -143,6 +143,12 @@
         width: 100%;
     }
 
+    @media (max-height: 888px) {
+        .game-board {
+            padding: 0 3rem;
+        }
+    }
+
 	h1 {
 		text-transform: uppercase;
 		font-size: 2em;
@@ -166,6 +172,7 @@
 
     .keyboard {
         margin-top: auto;
+        padding-top: 1rem;
         width: 100%;
     }
 
