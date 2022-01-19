@@ -9,6 +9,7 @@
         place-items: center;
         aspect-ratio: 1;
         font-size: 2rem;
+        line-height: 1;
         font-weight: 700;
         text-transform: uppercase;
     }

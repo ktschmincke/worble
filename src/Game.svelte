@@ -1,7 +1,6 @@
 <script>
     import dict from './dict';
 	import WordRow from './WordRow.svelte';
-	import WordRowLetter from './WordRowLetter.svelte';
 	import Keyboard from './Keyboard.svelte';
 
     const totalGuesses = 6;
