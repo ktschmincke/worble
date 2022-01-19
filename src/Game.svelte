@@ -12,6 +12,7 @@
 	let evaluations = [];
 	let keyMap = {};
 	let win = false;
+    let badGuess = '';
 
 	$: maxedGuesses = guesses.length === totalGuesses;
     $: currentGuess = currentGuess.toLowerCase();
@@ -19,8 +20,11 @@
 	function checkGuess() {
 		const isWord = dict.indexOf(currentGuess) !== -1;
 		if (!isWord) {
-			console.log(`'${currentGuess}' is not a word`);
-			return;
+            badGuess = currentGuess;
+			setTimeout(() => {
+                badGuess = '';
+            }, 5000)
+            return;
 		}
 
 		let evaluation = [];
@@ -98,6 +102,10 @@
 
 		{#if !maxedGuesses && !win}
 			<WordRow guess={currentGuess}/>
+
+            {#if badGuess}
+                <p style="text-align: center">Hey! '{badGuess}' isn't a word!</p>
+            {/if}
 		{/if}
 
 	</div>
