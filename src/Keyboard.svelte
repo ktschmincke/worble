@@ -28,6 +28,8 @@
     .keyboard {
         margin-top: auto;
         width: 100%;
+        user-select: none;
+        touch-action: manipulation;
     }
 
     .row {
