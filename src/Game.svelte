@@ -1,5 +1,5 @@
 <script>
-    import dict from './dict';
+    import { wordList, guessList } from './dict';
 	import WordRow from './WordRow.svelte';
 	import Keyboard from './Keyboard.svelte';
 
@@ -17,7 +17,7 @@
     $: currentGuess = currentGuess.toLowerCase();
 
 	function checkGuess() {
-		const isWord = dict.indexOf(currentGuess) !== -1;
+		const isWord = wordList.includes(currentGuess) || guessList.includes(currentGuess);
 		if (!isWord) {
             badGuess = currentGuess;
 			setTimeout(() => {
@@ -25,6 +25,8 @@
             }, 5000)
             return;
 		}
+
+        badGuess = '';
 
 		let evaluation = [];
 		for (let i = 0; i < 5; i++) {
@@ -77,7 +79,7 @@
 	}
 
 	function resetGame() {
-		word = dict[Math.floor(Math.random() * dict.length)];
+		word = wordList[Math.floor(Math.random() * wordList.length)];
 		guesses = [];
 		evaluations = [];
 		currentGuess = '';
