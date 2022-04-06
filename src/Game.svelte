@@ -11,7 +11,7 @@
   let evaluations = [];
   let keyMap = {};
   let win = false;
-  let badGuess = '';
+  let errorMsg = '';
 
   $: maxedGuesses = guesses.length === totalGuesses;
   $: currentGuess = currentGuess.toLowerCase();
@@ -19,24 +19,41 @@
   function checkGuess() {
     const isWord =
       wordList.includes(currentGuess) || guessList.includes(currentGuess);
-    if (!isWord) {
-      badGuess = currentGuess;
+
+    if (currentGuess.length < 5) {
+      errorMsg = "Hey! That's not enough letters!";
       setTimeout(() => {
-        badGuess = '';
+        errorMsg = '';
       }, 5000);
       return;
     }
 
-    badGuess = '';
+    if (!isWord) {
+      errorMsg = `Hey! ${currentGuess} isn't a word!`;
+      setTimeout(() => {
+        errorMsg = '';
+      }, 5000);
+      return;
+    }
+
+    errorMsg = '';
 
     let evaluation = [];
     for (let i = 0; i < 5; i++) {
       const guessLetter = currentGuess[i];
 
+      // get a count of how many times a given letter
+      // appears in the solution
+      const inWordCount = getLetterCount(word, guessLetter);
+
+      // get a count of how many times a given letter
+      // appears in the current guess up until the current position
+      const numInGuessSoFar = getLetterCount(currentGuess.substring(0, i), guessLetter);
+
       if (guessLetter === word[i]) {
         evaluation.push('correct');
         keyMap = { ...keyMap, [guessLetter]: 'correct' };
-      } else if (word.indexOf(guessLetter) !== -1) {
+      } else if (inWordCount > 0 && numInGuessSoFar < inWordCount) {
         evaluation.push('present');
         keyMap = { ...keyMap, [guessLetter]: 'present' };
       } else {
@@ -89,6 +106,21 @@
     console.log(`word is ${word}`);
   }
 
+  /**
+   * get how many times the letter appears in the word
+   * @param word
+   * @param letter
+   */
+  function getLetterCount(word, letter) {
+    let count = 0;
+    for (let i = 0; i < word.length; i++) {
+      if (word[i] === letter) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   resetGame();
 </script>
 
@@ -105,8 +137,8 @@
     {#if !maxedGuesses && !win}
       <WordRow guess={currentGuess} />
 
-      {#if badGuess}
-        <p style="text-align: center">Hey! '{badGuess}' isn't a word!</p>
+      {#if errorMsg}
+        <p style="text-align: center">{errorMsg}</p>
       {/if}
     {/if}
   </div>

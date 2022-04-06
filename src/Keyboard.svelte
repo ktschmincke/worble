@@ -27,17 +27,17 @@
 <div class="keyboard">
   <div class="row">
     {#each rows[0] as key}
-      <button data-state={keyMap[key]} on:click={() => keyClicked(key)}
-        >{key}</button
-      >
+      <button data-state={keyMap[key]} on:click={() => keyClicked(key)}>
+        {key}
+      </button>
     {/each}
   </div>
   <div class="row">
     <div class="half-spacer" />
     {#each rows[1] as key}
-      <button data-state={keyMap[key]} on:click={() => keyClicked(key)}
-        >{key}</button
-      >
+      <button data-state={keyMap[key]} on:click={() => keyClicked(key)}>
+        {key}
+      </button>
     {/each}
     <div class="half-spacer" />
   </div>
