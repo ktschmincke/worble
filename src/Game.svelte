@@ -38,7 +38,15 @@
 
     errorMsg = '';
 
-    let evaluation = [];
+    const evaluation = [];
+    const correctLetters = [];
+
+    for (let i = 0; i < 5; i++) {
+      if (currentGuess[i] === word[i]) {
+        correctLetters.push(currentGuess[i]);
+      }
+    }
+
     for (let i = 0; i < 5; i++) {
       const guessLetter = currentGuess[i];
 
@@ -48,16 +56,16 @@
 
       // get a count of how many times a given letter
       // appears in the current guess up until the current position
-      const numInGuessSoFar = getLetterCount(currentGuess.substring(0, i), guessLetter);
+      const numInGuessSoFar = getLetterCount(currentGuess.substring(0, i), guessLetter) + getLetterCount(correctLetters, guessLetter);
 
-      if (guessLetter === word[i]) {
-        evaluation.push('correct');
-        keyMap = { ...keyMap, [guessLetter]: 'correct' };
+      if (currentGuess[i] === word[i]) {
+        evaluation[i] = 'correct';
+        keyMap = { ...keyMap, [evaluation[i]]: 'correct' };
       } else if (inWordCount > 0 && numInGuessSoFar < inWordCount) {
-        evaluation.push('present');
+        evaluation[i] = 'present';
         keyMap = { ...keyMap, [guessLetter]: 'present' };
       } else {
-        evaluation.push('absent');
+        evaluation[i] = 'absent';
         keyMap = { ...keyMap, [guessLetter]: 'absent' };
       }
     }
