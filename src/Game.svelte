@@ -105,8 +105,7 @@
   }
 
   function resetGame() {
-    // word = wordList[Math.floor(Math.random() * wordList.length)];
-    word = 'laugh';
+    word = wordList[Math.floor(Math.random() * wordList.length)];
     guesses = [];
     evaluations = [];
     currentGuess = '';
@@ -137,7 +136,6 @@
 
 <main class="flow">
   <h1>WORBLE</h1>
-  <p>The Murphy bridal shower edition!</p>
 
   <div class="flow game-board">
     {#each guesses as guess, i}
@@ -204,7 +202,7 @@
     text-transform: uppercase;
     font-size: 2em;
     font-weight: 900;
-    margin: 0.5rem 0 0;
+    margin: 0.5rem 0 1rem;
     transform: rotate(-4deg);
   }
 
